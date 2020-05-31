@@ -21,8 +21,8 @@ public:
     bool operator >= (const Rational& rational) const;
     bool operator <= (const Rational& rational) const;
     bool operator != (const Rational& rational) const;
-    explicit operator float();
-    explicit operator double();
+    explicit operator float() const;
+    explicit operator double() const;
 
 };
 std::ostream& operator << (std::ostream& stream, const Rational& rhs);

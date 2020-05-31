@@ -79,11 +79,11 @@ bool Rational::operator!=(const Rational &rational) const {
     return numerator_*rational.denominator_!= denominator_*rational.numerator_;
 }
 
-Rational::operator double() {
+Rational::operator double() const{
     return static_cast<double>(GetNumerator()) / static_cast<double>(GetDenominator());
 }
 
-Rational::operator float() {
+Rational::operator float() const {
     return static_cast<float> (GetNumerator()) / static_cast<float> (GetDenominator());
 }
 
