@@ -2,18 +2,7 @@
 #include "Rational.hpp"
 #include <cmath>
 using namespace std;
-ostream& operator << (ostream& stream,const Rational& rational) {
-    stream << rational.Print_Rational();
-    return stream;
-}
-istream& operator >> (istream& stream, Rational& rational) {
-    int num=0;
-    int den=1;
-    stream >> num;
-    stream >> den;
-    rational=Rational{num,den};
-    return stream;
-}
+
 
 void test1() {
     Rational r = Rational();
@@ -46,14 +35,14 @@ void test4() {
 
 void test5() {
     Rational r = Rational(1,3);
-    if (abs(r.Cast_Double()-0.333)<0.001) {
+    if (abs(static_cast<double>(r)-0.333)<0.001) {
         cout << "equal" << endl;
     }
 }
 
 void test6() {
     Rational r = Rational(1,4);
-    if (abs(r.Cast_Float()-0.25)<0.001) {
+    if (abs(static_cast<float>(r)-0.25)<0.001) {
         cout << "equal" << endl;
     }
 }

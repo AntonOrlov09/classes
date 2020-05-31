@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 class Rational {
 private:
@@ -20,10 +21,13 @@ public:
     bool operator >= (const Rational& rational) const;
     bool operator <= (const Rational& rational) const;
     bool operator != (const Rational& rational) const;
-    double Cast_Double() const;
-    float Cast_Float() const;
-    std::string Print_Rational() const;
+    explicit operator float();
+    explicit operator double();
+
 };
+std::ostream& operator << (std::ostream& stream, const Rational& rhs);
+std::istream& operator >> (std::istream& stream,  Rational& lhs);
+
 
 
 

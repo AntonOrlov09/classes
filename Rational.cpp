@@ -18,9 +18,6 @@ int NOD(int a,int b) {
     return a+b;
 }
 
-int NOK(int a,int b) {
-    return a*b/NOD(a,b);
-}
 Rational::Rational(int numerator, int denominator) :numerator_(numerator), denominator_(denominator) {
     if (denominator==0) {
         throw invalid_argument("denominator can not be 0");
@@ -63,39 +60,46 @@ bool Rational::operator==(const Rational &rational) const {
 }
 
 bool Rational::operator>(const Rational &rational) const {
-    return NOK(denominator_,rational.denominator_)/denominator_*numerator_ > NOK(denominator_,rational.denominator_)/rational.denominator_*rational.numerator_;
+    return numerator_*rational.denominator_>denominator_*rational.numerator_;
 }
 
 bool Rational::operator<(const Rational &rational) const {
-    return NOK(denominator_,rational.denominator_)/denominator_*numerator_ < NOK(denominator_,rational.denominator_)/rational.denominator_*rational.numerator_;
+    return numerator_*rational.denominator_<denominator_*rational.numerator_;
 }
 
 bool Rational::operator>=(const Rational &rational) const {
-    return NOK(denominator_,rational.denominator_)/denominator_*numerator_ >= NOK(denominator_,rational.denominator_)/rational.denominator_*rational.numerator_;
+    return numerator_*rational.denominator_>=denominator_*rational.numerator_;
 }
 
 bool Rational::operator<=(const Rational &rational) const {
-    return NOK(denominator_,rational.denominator_)/denominator_*numerator_ <= NOK(denominator_,rational.denominator_)/rational.denominator_*rational.numerator_;
+    return numerator_*rational.denominator_<=denominator_*rational.numerator_;
 }
 
 bool Rational::operator!=(const Rational &rational) const {
     return numerator_*rational.denominator_!= denominator_*rational.numerator_;
 }
 
-double Rational::Cast_Double() const {
+Rational::operator double() {
     return static_cast<double>(GetNumerator()) / static_cast<double>(GetDenominator());
 }
 
-float Rational::Cast_Float() const {
+Rational::operator float() {
     return static_cast<float> (GetNumerator()) / static_cast<float> (GetDenominator());
 }
 
-std::string Rational::Print_Rational() const {
-    stringstream ss;
-    ss<< GetNumerator() << "/" << GetDenominator();
-    return ss.str();
-}
 
+ostream& operator << (ostream& stream,const Rational& rational) {
+    stream << rational.GetNumerator() << "/" << rational.GetDenominator();
+    return stream;
+}
+istream& operator >> (istream& stream, Rational& rational) {
+    int num=0;
+    int den=1;
+    stream >> num;
+    stream >> den;
+    rational=Rational{num,den};
+    return stream;
+}
 
 
 
